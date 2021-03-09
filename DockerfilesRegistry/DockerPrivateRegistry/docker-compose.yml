@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    TAAC_PVT_docker-registry:
+        container_name: TAAC_PVT_docker-registry_container
+        image: registry:2
+        ports:
+            - 5000:5000
+        restart: always
+        volumes:
+            - ./volume:/var/lib/registry
+    TAAC_PVT_docker-registry-ui:
+        container_name: TAAC_PVT_docker-registry-ui_container
+        image: konradkleine/docker-registry-frontend:v2
+        ports:
+            - 7070:80
+        environment:
+            ENV_DOCKER_REGISTRY_HOST: TAAC_PVT_docker-registry_container
+            ENV_DOCKER_REGISTRY_PORT: 5000
